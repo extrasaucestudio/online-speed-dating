@@ -1,42 +1,21 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import VueResource from 'vue-resource'; 
-import App from './appController.js';
-import signin from './Views/signinController.js';
-// import video from './video/video.vue';
-import signup from './Views/signupController.js';
+import VueRouter from 'vue-router';
+
+import router from './Router/router.js';
+import store from './store.js';
+
+import login from './Views/loginController.js';
+import profileLink from './Views/profileLink.js';
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
 
-var routes = [
-
-  {
-    path: '/',
-    component: App
-  },
-  {
-    path: '/signin',
-    component: signin
-  },
-    // {
-    //     path: '/video',
-    //     component: video
-    // },
-  {
-    path: '/signup',
-    component: signup
-  }
-];
-
-
-const router = new VueRouter({
-  routes
-});
-
-
+Vue.component('login', login);
+Vue.component('profilelink', profileLink);
 
 const app = new Vue({
+  store,
   router
 }).$mount('.app');
 
