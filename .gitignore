@@ -18,8 +18,9 @@ Icon
 node_modules/
 db/
 client/lib
-/Compiled
+Compiled/
 public/
+
 
 # Floobits
 .floo

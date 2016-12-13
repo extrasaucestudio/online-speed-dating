@@ -17,22 +17,27 @@ var sessionOptions = {
 
 module.exports = function(app, express) { 
   app.use('/', express.static(path.join(__dirname, '../Client')));
-  app.use('/dist', express.static(path.join(__dirname, '../../Compiled/transpiled')));
+  // app.use('/dist', express.static(path.join(__dirname, '../../compiled/transpiled')));
+  app.get('/dist/main.js', function(req, res) {
+    console.log('called');
+    res.sendFile(path.join(__dirname, '../../compiled/transpiled/main.js'));
+  });
   app.use(morgan('dev'));
   app.use(bodyParser.json());
   app.use(session(sessionOptions));
   app.use(passport.initialize());
   app.use(passport.session());
 
-
   passport.serializeUser(function(user, done) {
     done(null, user._id);
   });
+
   passport.deserializeUser(function(id, done) {
     User.findById(id, function (err, user) {
       done(err, user);
     });
   }); 
+  
   passport.use(new LocalStrategy(
     function(username, password, done) {
       userHandler.getUserDB(username, function(err, user) {

@@ -1,6 +1,5 @@
 
-import template from './loginTemplate.vue';
-
+import template from '../Templates/loginTemplate.vue';
 const login = {
   template: template.template,
   data () {
@@ -15,18 +14,17 @@ const login = {
         username: this.username,
         password: this.password 
       })
-      .then((res) => {
+      .then((res) => { 
         var body = res.body;
-        body.loggedIn = true;
+        this.$http.get('/api/events')
+          .then((res) => {
+            this.$store.commit('setAllEvents', res.body);
+          });
         this.$store.commit('setUser', body);
-        if(this.$route.params.id){
-          this.$router.push('/');
-        }
-          this.$router.push('/profile/' + res.body.username)
-        
+        this.$store.commit('setSavedEvents', body.events);
       })
       .catch((err) => console.error(err)); 
-    },
+    }
   },
   name: 'login'
 };
