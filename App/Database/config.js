@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoURI = 'mongodb://elliott:e@ds129028.mlab.com:29028/heroku_wsps6bz3';
+mongoURI = 'mongodb+srv://remixworlds:4344344jJ!@cluster0.nna35ug.mongodb.net/?retryWrites=true&w=majority';
 mongoose.connect(mongoURI);
 
 var db = mongoose.connection; 
